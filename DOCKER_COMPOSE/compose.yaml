@@ -1,0 +1,33 @@
+version: '3'  # docker compose版本声明
+services:     # 服务配置定义
+  test:
+    image: nvcr.io/nvidia/tritonserver:22.04-py3   # 构建的镜像
+    runtime: nvidia                                # 运行时
+    restart: always                                # 自启动
+    command: sh -c "tritonserver --model-repository=/work/wuzihao/triton/model_repository --strict-model-config=false"     # 启动时执行的命令
+    cap_add:
+      - SYS_PTRACE                # 权限组设置
+    environment:                  #　指定环境变量
+      - LANG=C.UTF-8
+    ports:                        # 端口映射
+      - "40182:22" # SSH
+      - "40183:8000"
+      - "40184:8001"
+      - "40185:8002"
+    deploy:                       # 服务部署时GPU资源限制
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              device_ids: ['4']
+              capabilities: [gpu]
+    container_name: zihao_research
+    volumes:                    # 文件卷挂载
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
+      - /home/user/wuzihao/work:/work
+    shm_size: 32G
+    network_mode:
+      bridge
+    stdin_open:
+      true
