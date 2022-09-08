@@ -1,5 +1,5 @@
 # Breakpad 概述
-![var](pic/breakpad.png)
+![var](../pic/breakpad.png)
 ## Breakpad组件
 1. 客户端  
 客户端是一个库，包含在您的应用程序中。 它可以获取当前线程的状态和当前加载的可执行文件和共享库的ID写转储文件。您可以配置客户端发生了崩溃时写入一个minidump时，或明确要求时。
@@ -52,7 +52,7 @@ window 平台编译出来的dump_syms，仅能在Window上运行，并解析wind
 https://github.com/adelshokhy112/linux-syscall-support
 https://blog.csdn.net/weixin_41330194/article/details/124349477
 * 修改部分不兼容代码  
-![var](pic/error1.png)
+![var](../pic/error1.png)
 elf_reader.cc文件200-201修改std::strcmp 为 strcmp
 * [编译缺失依赖](https://www.cnblogs.com/tsblog/p/16284918.html)  
 通过cmakelist配置set(CMAKE_CXX_FLAGS -pthread)解决
